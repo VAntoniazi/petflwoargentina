@@ -752,6 +752,14 @@ try {
     $provincia_nome = $provinciaNomes[strtoupper($provincia_usuario)]
                    ?? $provincia_usuario; // fallback: usa o proprio codigo
 
+    /*
+     * ESTRUTURA CORRETA DO ADDRESS NO MP /v1/customers
+     * --------------------------------------------------
+     * city, state e country devem ser OBJETOS com { name: "..." }
+     * Enviar como string causa: "address.city must be a Json Object"
+     *
+     * Referencia: https://www.mercadopago.com.ar/developers/es/reference/customers/_customers/post
+     */
     $customerPayload = [
         'email'          => $email_login,
         'first_name'     => $first_name,
@@ -762,9 +770,9 @@ try {
             'zip_code'      => $cp_usuario,
             'street_name'   => $user_street,
             'street_number' => is_numeric($user_number) ? (int)$user_number : 0,
-            'city'          => $localidad_usuario,       // OBRIGATORIO no MP
-            'state_name'    => $provincia_nome,          // OBRIGATORIO no MP
-            'country_name'  => 'Argentina',
+            'city'          => ['name' => $localidad_usuario],   // objeto obrigatorio
+            'state'         => ['name' => $provincia_nome],      // objeto obrigatorio
+            'country'       => ['name' => 'Argentina'],          // objeto obrigatorio
         ],
         'description' => 'Cliente PetFlow.PRO Argentina',
         'metadata'    => [
