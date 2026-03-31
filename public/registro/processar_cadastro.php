@@ -859,8 +859,10 @@ try {
      *            usuario nao e cobrado nos primeiros 7 dias.
      *            Primeira cobranca ocorre em start_date.
      *
-     *    Moeda : USD → MP converte para ARS na taxa do dia.
-     *            Protege o valor real da inflacao argentina.
+     *    Moeda : ARS (pesos argentinos) — unica moeda aceita pelo MP AR.
+     *            O valor e definido em $valorFinalFloat (centavos / 100).
+     *            Para proteger da inflacao, ajuste os precos periodicamente
+     *            no painel ou via webhook de cambio.
      *
      *    Docs  : https://www.mercadopago.com.ar/developers/es/reference/subscriptions/_preapproval/post
      * ───────────────────────────────────────────────────────────────────── */
@@ -888,9 +890,11 @@ try {
             'frequency'          => $freqData['frequency'],
             'frequency_type'     => $freqData['frequency_type'],
             'transaction_amount' => $valorFinalFloat,
-            'currency_id'        => 'USD',
+            // currency_id NAO e aceito no auto_recurring do MP AR —
+            // a moeda e definida automaticamente pela conta (ARS).
+            // O valor USD e convertido pelo MP na taxa do dia via Mercado Pago.
             'start_date'         => $start_date_iso,
-            'end_date'           => null,
+            // end_date omitido (null e rejeitado) — assinatura sem vencimento
             'free_trial'         => [
                 'frequency'      => $trialDays,
                 'frequency_type' => 'days',
