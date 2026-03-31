@@ -1,0 +1,24 @@
+Options -Indexes
+php_flag display_errors on
+php_value error_reporting E_ALL
+
+RewriteEngine On
+
+# ── 1. Forçar HTTPS ──────────────────────────────────────────────────────────
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# ── 2. Adicionar barra final em /blog (evita redirect duplo do Apache) ───────
+RewriteCond %{REQUEST_URI} ^/blog$
+RewriteRule ^ /blog/ [R=301,L]
+
+# ── 3. Roteamento limpo do blog ──────────────────────────────────────────────
+# /blog/qualquer-slug → /blog/post.php?slug=qualquer-slug
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^blog/([^/]+)/?$ /blog/post.php?slug=$1 [QSA,L]
+
+# ── 4. Fallback geral (caso use index.php como front controller) ─────────────
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ /index.php [QSA,L]

@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="es-AR" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema para Peluquería Canina | PetFlow.PRO — Agenda, Stock, Finanzas e Inteligencia de Negocio</title>
+  <meta name="description" content="PetFlow.PRO: sistema de gestión para peluquerías caninas y pet shops con agenda inteligente, control de stock, finanzas completas e Inteligencia de Negocio. Probá gratis 7 días." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://petflow.pro/ar/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://petflow.pro/ar/" />
+  <meta property="og:title" content="Sistema para Peluquería Canina | PetFlow.PRO" />
+  <meta property="og:description" content="Organizá agenda, clientes, mascotas, stock y finanzas de tu peluquería canina en un único sistema." />
+  <meta property="og:image" content="https://petflow.pro/assets/og-image.png" />
+  <meta property="og:locale" content="es_AR" />
+  <link rel="icon" type="image/png" href="https://app.petflow.pro/assets/images/logo.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "PetFlow.PRO",
+        "description": "Sistema de gestión completo para peluquerías caninas y pet shops: agenda, clientes, mascotas, stock, finanzas e Inteligencia de Negocio.",
+        "url": "https://petflow.pro/ar/",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web, iOS, Android",
+        "offers": [
+          {"@type":"Offer","name":"Plan Mensual","price":"15","priceCurrency":"USD"},
+          {"@type":"Offer","name":"Plan Anual","price":"135","priceCurrency":"USD"}
+        ],
+        "aggregateRating": {"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"200","bestRating":"5"}
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {"@type":"Question","name":"¿Necesito ingresar tarjeta para empezar la prueba gratis?","acceptedAnswer":{"@type":"Answer","text":"Sí. La prueba gratuita de 7 días requiere tarjeta. No se te cobra durante el período de prueba."}},
+          {"@type":"Question","name":"¿Tengo permanencia obligatoria en PetFlow.PRO?","acceptedAnswer":{"@type":"Answer","text":"No en el plan mensual. Podés cancelar cuando quieras, sin penalidad contractual."}},
+          {"@type":"Question","name":"¿Cuánto cuesta PetFlow.PRO?","acceptedAnswer":{"@type":"Answer","text":"Plan mensual: USD 15/mes sin permanencia. Plan anual: USD 135 por año (USD 11,25/mes), con 25% de descuento."}}
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --primary: #4f46e5;
+      --primary-dark: #3730a3;
+      --primary-soft: #eef2ff;
+      --text: #0f172a;
+      --muted: #475569;
+      --bg-soft: #f8fafc;
+      --green: #16a34a;
+      --green-light: #22c55e;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family:'Plus Jakarta Sans',sans-serif; background:#fff; color:var(--text); line-height:1.6; overflow-x:hidden; }
+    .container-custom { max-width:1280px; margin:0 auto; padding:0 1.5rem; position:relative; z-index:2; }
+    @media(max-width:640px){ .container-custom{ padding:0 1rem; } }
+
+    .urgency-bar { background:linear-gradient(90deg,#1e1b4b,#4338ca,#1e1b4b); background-size:200% 100%; animation:shimmer-bar 4s linear infinite; color:#fff; text-align:center; padding:.65rem 1rem; font-size:.82rem; font-weight:700; letter-spacing:.04em; position:relative; z-index:100; }
+    @keyframes shimmer-bar{0%{background-position:0%}100%{background-position:200%}}
+    .urgency-bar strong{ color:#fde047; }
+
+    .navbar-glass { background:rgba(255,255,255,0.94); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.4); box-shadow:0 8px 32px rgba(15,23,42,0.08); border-radius:1rem; transition:box-shadow .25s; }
+    .nav-sticky { position:sticky; top:8px; z-index:90; }
+
+    .hero-section { background:linear-gradient(135deg,#1e1b4b 0%,#312e81 32%,#4338ca 70%,#6366f1 100%); position:relative; overflow:hidden; isolation:isolate; }
+    .hero-section::before { content:''; position:absolute; inset:0; background: radial-gradient(circle at 10% 18%,rgba(255,255,255,0.11) 0%,transparent 32%), radial-gradient(circle at 85% 15%,rgba(255,255,255,0.10) 0%,transparent 30%), radial-gradient(circle at 55% 80%,rgba(255,255,255,0.08) 0%,transparent 35%); pointer-events:none; z-index:0; }
+    .hero-pattern { position:absolute; inset:0; background-image:radial-gradient(rgba(255,255,255,0.08) 1px,transparent 1px); background-size:24px 24px; opacity:.16; pointer-events:none; z-index:0; }
+
+    .section-title { font-size:clamp(1.8rem,3vw,2.6rem); font-weight:900; line-height:1.12; color:var(--text); margin-bottom:1rem; letter-spacing:-0.03em; }
+    .section-desc { color:var(--muted); font-size:1.04rem; line-height:1.75; }
+    .section-soft { background:var(--bg-soft); }
+
+    .eyebrow { display:inline-flex; align-items:center; gap:.55rem; padding:.55rem 1rem; border-radius:999px; background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.22); color:#fff; font-size:.78rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; backdrop-filter:blur(8px); }
+    .eyebrow-light { display:inline-flex; align-items:center; gap:.55rem; padding:.55rem 1rem; border-radius:999px; background:#eef2ff; border:1px solid #c7d2fe; color:var(--primary-dark); font-size:.78rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+
+    .btn-primary { display:inline-flex; align-items:center; justify-content:center; gap:.65rem; padding:1rem 1.7rem; border-radius:999px; background:var(--primary); color:#fff; font-weight:800; text-decoration:none; box-shadow:0 18px 34px rgba(79,70,229,0.28); transition:.25s ease; border:none; cursor:pointer; font-size:1rem; font-family:inherit; }
+    .btn-primary:hover{ background:#4338ca; transform:translateY(-2px); box-shadow:0 24px 40px rgba(79,70,229,0.35); }
+    .btn-cta-green { background:linear-gradient(135deg,#22c55e,#16a34a); box-shadow:0 18px 34px rgba(34,197,94,0.32); font-size:1.05rem; padding:1.1rem 2rem; animation:pulse-cta 2.5s ease-out infinite; }
+    .btn-cta-green:hover{ background:linear-gradient(135deg,#16a34a,#15803d); box-shadow:0 24px 40px rgba(34,197,94,0.4); transform:translateY(-2px); }
+    @keyframes pulse-cta{0%{box-shadow:0 0 0 0 rgba(34,197,94,0.4),0 18px 34px rgba(34,197,94,0.32)}70%{box-shadow:0 0 0 14px rgba(34,197,94,0),0 18px 34px rgba(34,197,94,0.32)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0),0 18px 34px rgba(34,197,94,0.32)}}
+    .btn-secondary { display:inline-flex; align-items:center; justify-content:center; gap:.65rem; padding:1rem 1.7rem; border-radius:999px; background:rgba(255,255,255,0.12); color:#fff; font-weight:800; text-decoration:none; border:1px solid rgba(255,255,255,0.28); backdrop-filter:blur(8px); transition:.25s ease; font-family:inherit; }
+    .btn-secondary:hover{ background:rgba(255,255,255,0.2); transform:translateY(-2px); }
+    .btn-primary-light { display:inline-flex; align-items:center; justify-content:center; gap:.65rem; padding:1.1rem 2rem; border-radius:999px; background:#fff; color:var(--primary-dark); font-weight:800; text-decoration:none; transition:.25s ease; box-shadow:0 18px 32px rgba(255,255,255,0.18); font-family:inherit; }
+    .btn-primary-light:hover{ background:#f8fafc; transform:translateY(-2px); }
+    .btn-outline-white { display:inline-flex; align-items:center; justify-content:center; gap:.65rem; padding:1rem 1.7rem; border-radius:999px; background:transparent; color:#fff; font-weight:700; text-decoration:none; border:2px solid rgba(255,255,255,0.5); transition:.25s ease; font-family:inherit; }
+    .btn-outline-white:hover{ border-color:#fff; background:rgba(255,255,255,0.08); transform:translateY(-2px); }
+
+    .hero-shot { background:#fff; border-radius:1.75rem; padding:.75rem; overflow:hidden; box-shadow:0 40px 100px rgba(15,23,42,0.38), 0 0 0 1px rgba(255,255,255,0.25), inset 0 1px 0 rgba(255,255,255,0.5); }
+    .hero-shot-inner { border-radius:1.25rem; overflow:hidden; background:linear-gradient(135deg,#e0e7ff 0%,#c7d2fe 100%); }
+    .dashboard-img { width:100%; height:auto; display:block; border-radius:1.25rem; object-fit:cover; object-position:top center; }
+    .browser-bar { background:#f1f5f9; padding:.5rem .75rem; display:flex; align-items:center; gap:.5rem; border-bottom:1px solid #e2e8f0; }
+    .browser-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+    .browser-url { flex:1; background:#fff; border:1px solid #e2e8f0; border-radius:999px; padding:.2rem .75rem; font-size:.7rem; color:#64748b; font-family:monospace; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+    .mini-proof { display:inline-flex; align-items:center; gap:.8rem; background:rgba(255,255,255,0.97); border:1px solid rgba(255,255,255,0.6); padding:.9rem 1.1rem; border-radius:1rem; box-shadow:0 12px 32px rgba(67,56,202,0.18); }
+    .hero-trust-badge { display:inline-flex; align-items:center; gap:.5rem; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.22); color:#eef2ff; padding:.65rem .95rem; border-radius:999px; font-size:.86rem; font-weight:600; backdrop-filter:blur(8px); }
+    .hero-trust-strip { display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.15rem; }
+
+    .card { background:#fff; border:1px solid #e9d5ff; border-radius:1.35rem; box-shadow:0 12px 30px rgba(79,70,229,0.08); transition:.28s ease; padding:1.6rem; }
+    .card:hover { transform:translateY(-5px); border-color:#8b5cf6; box-shadow:0 24px 46px rgba(79,70,229,0.14); }
+
+    .stats-strip { background:linear-gradient(135deg,#1e1b4b,#3730a3); border-radius:1.5rem; padding:2.5rem 2rem; }
+    .stat-number { font-size:clamp(2.2rem,4vw,3rem); font-weight:900; color:#fde047; line-height:1; letter-spacing:-0.04em; }
+    .stat-label { color:#c7d2fe; font-size:.88rem; font-weight:600; margin-top:.4rem; }
+
+    .pain-card { background:#fff; border:2px solid #fee2e2; border-radius:1.35rem; padding:1.6rem; transition:.28s ease; position:relative; overflow:hidden; }
+    .pain-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,#ef4444,#f97316); }
+    .pain-card:hover { transform:translateY(-4px); border-color:#fca5a5; box-shadow:0 16px 32px rgba(239,68,68,0.1); }
+
+    .mascote-section { background:linear-gradient(135deg,#f0f4ff 0%,#e8f0fe 100%); border-radius:2rem; position:relative; overflow:hidden; }
+    .mascote-section::before { content:''; position:absolute; inset:0; background-image:radial-gradient(rgba(79,70,229,0.06) 1px,transparent 1px); background-size:20px 20px; pointer-events:none; }
+    .mascote-img { width:280px; max-width:100%; height:auto; filter:drop-shadow(0 24px 40px rgba(79,70,229,0.22)); animation:mascote-float 4s ease-in-out infinite; }
+    @keyframes mascote-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+    .speech-bubble { background:#fff; border:2px solid #c7d2fe; border-radius:1.25rem; padding:1.25rem 1.5rem; position:relative; box-shadow:0 12px 32px rgba(79,70,229,0.12); display:inline-block; }
+    .speech-bubble::after { content:''; position:absolute; bottom:-16px; left:2rem; border:8px solid transparent; border-top-color:#c7d2fe; }
+    .speech-bubble::before { content:''; position:absolute; bottom:-12px; left:2.1rem; border:7px solid transparent; border-top-color:#fff; z-index:1; }
+
+    .bi-section { background:linear-gradient(135deg,#1e1b4b 0%,#312e81 60%,#4338ca 100%); position:relative; overflow:hidden; isolation:isolate; border-radius:2rem; }
+    .bi-section::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 15% 50%,rgba(250,204,21,0.12) 0%,transparent 50%),radial-gradient(circle at 85% 20%,rgba(99,102,241,0.2) 0%,transparent 40%); pointer-events:none; }
+    .bi-pattern { position:absolute; inset:0; background-image:radial-gradient(rgba(255,255,255,0.06) 1px,transparent 1px); background-size:20px 20px; opacity:.2; pointer-events:none; }
+    .bi-feature-card { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:1rem; padding:1.25rem; backdrop-filter:blur(10px); transition:.25s ease; }
+    .bi-feature-card:hover { background:rgba(255,255,255,0.12); transform:translateY(-3px); border-color:rgba(250,204,21,0.4); }
+    .bi-icon { width:44px; height:44px; border-radius:.75rem; background:rgba(250,204,21,0.15); border:1px solid rgba(250,204,21,0.3); display:flex; align-items:center; justify-content:center; color:#fde047; font-size:1.1rem; flex-shrink:0; margin-bottom:.75rem; }
+
+    .objection-card { background:#fff; border:1px solid #e9d5ff; border-radius:1.35rem; padding:1.6rem; transition:.28s ease; }
+    .objection-card:hover { transform:translateY(-4px); border-color:#8b5cf6; box-shadow:0 20px 40px rgba(79,70,229,0.12); }
+    .objection-number { width:36px; height:36px; background:linear-gradient(135deg,#4f46e5,#7c3aed); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:900; font-size:.9rem; flex-shrink:0; }
+
+    .guarantee-card { background:linear-gradient(135deg,#f0fdf4,#dcfce7); border:2px solid #86efac; border-radius:1.5rem; padding:2rem; text-align:center; }
+    .guarantee-icon-wrap { width:80px; height:80px; background:linear-gradient(135deg,#22c55e,#16a34a); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem; box-shadow:0 12px 28px rgba(34,197,94,0.3); font-size:2rem; color:#fff; }
+
+    .comparison-card { background:#fff; border:1px solid #e9d5ff; border-radius:1.35rem; box-shadow:0 12px 30px rgba(79,70,229,0.08); transition:.28s ease; padding:1.8rem; }
+    .comparison-card:hover { transform:translateY(-5px); border-color:#8b5cf6; box-shadow:0 24px 46px rgba(79,70,229,0.14); }
+    .compare-ok { width:28px; height:28px; display:inline-flex; align-items:center; justify-content:center; border-radius:999px; font-size:.85rem; font-weight:900; flex-shrink:0; margin-top:.1rem; background:#dcfce7; color:#166534; }
+    .compare-bad { width:28px; height:28px; display:inline-flex; align-items:center; justify-content:center; border-radius:999px; font-size:.85rem; font-weight:900; flex-shrink:0; margin-top:.1rem; background:#fee2e2; color:#991b1b; }
+
+    .plan-card { background:#fff; border:2px solid #e9d5ff; border-radius:1.35rem; box-shadow:0 12px 30px rgba(79,70,229,0.08); transition:.28s ease; padding:2rem; position:relative; overflow:hidden; height:100%; }
+    .plan-card:hover { transform:translateY(-5px); border-color:#8b5cf6; box-shadow:0 24px 46px rgba(79,70,229,0.14); }
+    .plan-card.highlighted { border-color:#8b5cf6; background:linear-gradient(180deg,#ffffff,#f5f3ff); transform:scale(1.02); }
+    .plan-badge { position:absolute; top:-1px; left:50%; transform:translateX(-50%); background:linear-gradient(90deg,#7c3aed,#6366f1); color:#fff; font-size:.8rem; font-weight:900; padding:.6rem 1.25rem; border-radius:999px; letter-spacing:.08em; white-space:nowrap; box-shadow:0 12px 24px rgba(124,58,237,0.3); }
+    .price-original { color:#94a3b8; text-decoration:line-through; font-size:.98rem; margin-right:.5rem; }
+    .economy-badge { display:inline-flex; align-items:center; gap:.35rem; background:#dcfce7; color:#166534; padding:.35rem .8rem; border-radius:999px; font-size:.76rem; font-weight:800; }
+    .usd-note { background:linear-gradient(135deg,#fefce8,#fef9c3); border:1px solid #fde047; border-radius:.75rem; padding:.6rem 1rem; font-size:.78rem; color:#713f12; font-weight:700; display:inline-flex; align-items:center; gap:.4rem; }
+
+    .faq-item { background:#fff; border:1px solid #e9d5ff; border-radius:1.35rem; box-shadow:0 12px 30px rgba(79,70,229,0.08); transition:.28s ease; overflow:hidden; }
+    .faq-item:hover { border-color:#8b5cf6; }
+    .faq-question { padding:1.25rem 1.4rem; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:1rem; font-weight:800; color:var(--text); font-size:1rem; }
+    .faq-answer { max-height:0; overflow:hidden; transition:max-height .35s ease; padding:0 1.4rem; color:var(--muted); font-size:.96rem; line-height:1.75; }
+    .faq-answer.show { padding-bottom:1.3rem; }
+    .faq-icon { transition:transform .25s ease; color:var(--primary); flex-shrink:0; }
+    .faq-item.active .faq-icon { transform:rotate(180deg); }
+
+    .cta-final-section { position:relative; overflow:hidden; isolation:isolate; padding-top:8rem; padding-bottom:4.5rem; }
+    .cta-final-section .container-custom { position:relative; z-index:3; }
+    .cta-final-wave-top { position:absolute; top:0; left:0; right:0; z-index:1; line-height:0; pointer-events:none; }
+    .cta-final-wave-top svg { display:block; width:100%; height:110px; }
+
+    .wave-divider { position:absolute; left:0; right:0; line-height:0; z-index:1; pointer-events:none; }
+    .wave-divider.bottom { bottom:0; }
+    .wave-divider svg { width:100%; height:auto; display:block; }
+
+    .price-anchor-bar { background:linear-gradient(135deg,#f5f3ff,#ede9fe); border:1px solid #c4b5fd; border-radius:1.25rem; padding:1.25rem 1.75rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
+
+    .proof-ticker { background:linear-gradient(90deg,#1e1b4b,#312e81); padding:.7rem 0; overflow:hidden; position:relative; }
+    .proof-ticker::before, .proof-ticker::after { content:''; position:absolute; top:0; bottom:0; width:60px; z-index:2; pointer-events:none; }
+    .proof-ticker::before { left:0; background:linear-gradient(90deg,#1e1b4b,transparent); }
+    .proof-ticker::after { right:0; background:linear-gradient(-90deg,#1e1b4b,transparent); }
+    .ticker-track { display:flex; gap:3rem; width:max-content; animation:ticker-scroll 30s linear infinite; }
+    .ticker-track:hover { animation-play-state:paused; }
+    @keyframes ticker-scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .ticker-item { display:flex; align-items:center; gap:.6rem; color:#c7d2fe; font-size:.84rem; font-weight:600; white-space:nowrap; }
+    .ticker-item i { color:#fde047; }
+
+    .risk-strip { background:linear-gradient(135deg,#f0fdf4,#dcfce7); border:1px solid #86efac; border-radius:1rem; padding:1rem 1.5rem; display:flex; align-items:center; gap:.75rem; flex-wrap:wrap; }
+
+    .animate-on-scroll { opacity:0; transform:translateY(34px); transition:all .7s cubic-bezier(0.4,0,0.2,1); }
+    .animate-on-scroll.visible { opacity:1; transform:translateY(0); }
+    .delay-1{ transition-delay:.08s; } .delay-2{ transition-delay:.16s; }
+    .delay-3{ transition-delay:.24s; } .delay-4{ transition-delay:.32s; }
+    .delay-5{ transition-delay:.4s; }
+
+    .sticky-mobile-cta { position:fixed; left:0; right:0; bottom:0; z-index:60; background:rgba(255,255,255,0.97); backdrop-filter:blur(14px); border-top:1px solid #e2e8f0; padding:.8rem 1rem calc(.8rem + env(safe-area-inset-bottom)); display:none; box-shadow:0 -8px 24px rgba(15,23,42,0.1); }
+    .sticky-whatsapp { position:fixed; right:1.25rem; bottom:5.8rem; z-index:55; width:60px; height:60px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; background:#22c55e; color:#fff; box-shadow:0 16px 28px rgba(34,197,94,.28); text-decoration:none; transition:.25s ease; }
+    .sticky-whatsapp:hover { transform:scale(1.08); background:#16a34a; }
+
+    @media(max-width:1024px){ .plan-card.highlighted{ transform:none; } }
+    @media(max-width:768px){
+      .sticky-mobile-cta{ display:block; }
+      .sticky-whatsapp{ bottom:6.4rem; }
+      .hero-trust-strip{ justify-content:center; }
+      .mini-proof{ width:100%; justify-content:center; }
+      .cta-final-section{ padding-top:6.25rem; padding-bottom:4rem; }
+      .cta-final-wave-top svg{ height:78px; }
+      .bi-section, .mascote-section{ border-radius:1.25rem; }
+      .mascote-img{ width:200px; }
+    }
+    @media(max-width:480px){
+      .cta-final-section{ padding-top:5.5rem; padding-bottom:3.5rem; }
+      .cta-final-wave-top svg{ height:64px; }
+      .mascote-img{ width:160px; }
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900 antialiased">
+
+<!-- BARRA DE URGENCIA -->
+<div class="urgency-bar" role="banner">
+  <i class="fas fa-tag mr-1"></i>
+  Probá <strong>gratis por 7 días</strong> — acceso completo, sin riesgo, cancelá cuando quieras.
+  <a href="/registro/" class="underline font-bold text-yellow-300 ml-2 hover:text-yellow-100 transition">Empezar ahora &rarr;</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero-section pb-28" itemscope itemtype="https://schema.org/SoftwareApplication">
+  <meta itemprop="name" content="PetFlow.PRO" />
+  <meta itemprop="applicationCategory" content="BusinessApplication" />
+  <div class="hero-pattern" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <div class="container-custom pt-4">
+    <div class="nav-sticky">
+      <nav class="navbar-glass px-4 md:px-6 py-3 flex items-center justify-between gap-4" role="navigation" aria-label="Navegación principal">
+        <a href="/" class="flex items-center gap-2.5 group" aria-label="PetFlow.PRO">
+          <div class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-indigo-700 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+            <img src="https://app.petflow.pro/App/assets/images/logo.png" alt="Logo PetFlow.PRO" class="w-6 h-6 object-contain brightness-0 invert" width="24" height="24" loading="eager" />
+          </div>
+          <span class="font-extrabold text-slate-900 text-lg">PetFlow.PRO</span>
+        </a>
+        <div class="hidden md:flex items-center gap-6">
+          <a href="#problemas" class="text-slate-600 hover:text-indigo-600 font-semibold transition-colors text-sm">Problemas</a>
+          <a href="#funcionalidades" class="text-slate-600 hover:text-indigo-600 font-semibold transition-colors text-sm">Funcionalidades</a>
+          <a href="#bi" class="text-slate-600 hover:text-indigo-600 font-semibold transition-colors text-sm">Inteligencia</a>
+          <a href="#planes" class="text-slate-600 hover:text-indigo-600 font-semibold transition-colors text-sm">Planes</a>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="https://app.petflow.pro" class="text-sm text-slate-600 hover:text-indigo-600 font-semibold hidden sm:block">Ingresar</a>
+          <a href="/registro/" class="hidden sm:inline-flex items-center justify-center rounded-xl bg-green-500 px-5 py-2.5 text-sm font-bold text-white hover:bg-green-600 transition-all hover:shadow-lg gap-2">
+            <i class="fas fa-rocket text-xs"></i> Prueba gratis
+          </a>
+          <button class="md:hidden p-2 rounded-lg hover:bg-slate-100" onclick="toggleMobileMenu()" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </nav>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden bg-white rounded-xl p-4 mt-2 shadow-xl" role="menu">
+      <a href="#problemas" class="block py-2 px-3 text-slate-700 hover:bg-indigo-50 rounded-lg font-medium">Problemas</a>
+      <a href="#funcionalidades" class="block py-2 px-3 text-slate-700 hover:bg-indigo-50 rounded-lg font-medium">Funcionalidades</a>
+      <a href="#bi" class="block py-2 px-3 text-slate-700 hover:bg-indigo-50 rounded-lg font-medium">Inteligencia de Negocio</a>
+      <a href="#planes" class="block py-2 px-3 text-slate-700 hover:bg-indigo-50 rounded-lg font-medium">Planes</a>
+      <hr class="my-2 border-slate-200">
+      <a href="/registro/" class="block py-3 px-3 bg-green-500 text-white rounded-lg text-center font-bold hover:bg-green-600 transition">
+        <i class="fas fa-rocket mr-1"></i> Empezar prueba gratis — 7 días
+      </a>
+    </div>
+  </div>
+
+  <!-- HERO CONTENT -->
+  <div class="container-custom py-14 md:py-20 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+      <div class="text-center lg:text-left max-w-3xl mx-auto lg:mx-0">
+        <div class="mb-5 animate-on-scroll visible">
+          <span class="eyebrow"><i class="fas fa-paw text-yellow-300"></i> Sistema exclusivo para peluquerías caninas y pet shops</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl lg:text-[3.2rem] font-black text-white leading-[1.06] mb-5 tracking-[-0.04em] text-balance animate-on-scroll visible delay-1">
+          ¿Tu negocio pierde plata por falta de control?
+          <span class="text-yellow-300">Eso tiene solución.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-indigo-100 max-w-2xl mb-4 animate-on-scroll visible delay-2">
+          El <strong>PetFlow.PRO</strong> organiza agenda, clientes, mascotas, stock y finanzas — todo en un sistema simple. Con <strong class="text-yellow-300">Inteligencia de Negocio</strong> para que crezcás con datos, no con suposiciones.
+        </p>
+        <div class="flex items-center justify-center lg:justify-start gap-2 mb-6 animate-on-scroll visible delay-2">
+          <span class="bg-yellow-300 text-yellow-900 text-xs font-black px-3 py-1 rounded-full">Desde USD 11,25/mes</span>
+          <span class="text-indigo-200 text-sm font-semibold">· 7 días gratis · Sin permanencia</span>
+        </div>
+        <div class="flex items-center justify-center lg:justify-start gap-3 mb-7 animate-on-scroll visible delay-2">
+          <div class="flex -space-x-1.5">
+            <div class="w-7 h-7 rounded-full bg-indigo-200 border-2 border-white flex items-center justify-center text-xs font-bold text-indigo-700">V</div>
+            <div class="w-7 h-7 rounded-full bg-indigo-300 border-2 border-white flex items-center justify-center text-xs font-bold text-indigo-800">M</div>
+            <div class="w-7 h-7 rounded-full bg-indigo-400 border-2 border-white flex items-center justify-center text-xs font-bold text-white">L</div>
+            <div class="w-7 h-7 rounded-full bg-indigo-500 border-2 border-white flex items-center justify-center text-xs font-bold text-white">+</div>
+          </div>
+          <span class="text-indigo-200 text-sm font-semibold">
+            <strong class="text-white">+200 negocios</strong> ya usan PetFlow.PRO
+            <span class="inline-flex gap-0.5 ml-1 text-amber-400 text-xs">★★★★★</span>
+          </span>
+        </div>
+        <div class="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 mb-4 animate-on-scroll visible delay-3">
+          <a href="/registro/" class="btn-primary btn-cta-green w-full sm:w-auto">
+            <i class="fas fa-rocket text-sm"></i> Empezar prueba gratis — 7 días
+          </a>
+          <a href="#sistema" class="btn-secondary w-full sm:w-auto">
+            Ver el sistema <i class="fas fa-display text-sm"></i>
+          </a>
+        </div>
+        <p class="text-indigo-100/90 text-sm font-semibold animate-on-scroll visible delay-4">
+          <i class="fas fa-shield-check text-green-400 mr-1"></i>
+          Sin riesgo · Cancelá cuando quieras · Sin permanencia en el plan mensual
+        </p>
+        <div class="hero-trust-strip justify-center lg:justify-start animate-on-scroll visible delay-5">
+          <span class="hero-trust-badge"><i class="fas fa-check-circle text-green-300"></i> Implementación simple</span>
+          <span class="hero-trust-badge"><i class="fas fa-check-circle text-green-300"></i> Pensado para mascotas</span>
+          <span class="hero-trust-badge"><i class="fas fa-check-circle text-green-300"></i> Soporte incluido</span>
+          <span class="hero-trust-badge"><i class="fas fa-check-circle text-green-300"></i> BI integrado</span>
+        </div>
+      </div>
+      <div id="sistema" class="animate-on-scroll visible delay-3">
+        <div class="hero-shot">
+          <div class="browser-bar">
+            <div class="browser-dot" style="background:#ff5f57"></div>
+            <div class="browser-dot" style="background:#febe2e"></div>
+            <div class="browser-dot" style="background:#2bc840"></div>
+            <div class="browser-url">app.petflow.pro — Dashboard</div>
+          </div>
+          <div class="hero-shot-inner">
+            <img src="/assets/demo.png" alt="Dashboard PetFlow.PRO: agenda, finanzas, stock e inteligencia de negocio" class="dashboard-img" width="720" height="450" loading="eager" itemprop="screenshot" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center mt-20 animate-on-scroll visible delay-5">
+      <div class="mini-proof">
+        <div class="flex -space-x-2">
+          <div class="w-9 h-9 rounded-full bg-indigo-100 border-2 border-white flex items-center justify-center"><i class="fas fa-dog text-indigo-600 text-xs"></i></div>
+          <div class="w-9 h-9 rounded-full bg-indigo-200 border-2 border-white flex items-center justify-center"><i class="fas fa-cat text-indigo-700 text-xs"></i></div>
+          <div class="w-9 h-9 rounded-full bg-indigo-300 border-2 border-white flex items-center justify-center"><i class="fas fa-paw text-indigo-800 text-xs"></i></div>
+        </div>
+        <div>
+          <div class="flex items-center gap-3 flex-wrap">
+            <span class="text-indigo-900 font-black text-xl">+200 negocios activos</span>
+            <span class="inline-flex items-center gap-0.5 text-amber-500 text-sm font-bold">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </span>
+          </div>
+          <p class="text-slate-600 text-sm">Calificación promedio <strong>4.8/5</strong> · Acceso inmediato tras el registro</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wave-divider bottom" aria-hidden="true">
+    <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#F8FAFC"/>
+    </svg>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="proof-ticker" aria-label="Actividad reciente">
+  <div class="ticker-track">
+    <span class="ticker-item"><i class="fas fa-check-circle"></i> Valeria (Buenos Aires) empezó la prueba gratis</span>
+    <span class="ticker-item"><i class="fas fa-star"></i> Peluquería Patitas le dio 5 estrellas</span>
+    <span class="ticker-item"><i class="fas fa-check-circle"></i> Martín (Córdoba) se suscribió al plan anual</span>
+    <span class="ticker-item"><i class="fas fa-paw"></i> +200 negocios de mascotas usando PetFlow.PRO</span>
+    <span class="ticker-item"><i class="fas fa-check-circle"></i> Luciana (Rosario) empezó la prueba gratis</span>
+    <span class="ticker-item"><i class="fas fa-star"></i> Calificación promedio 4.8 de 5 estrellas</span>
+    <span class="ticker-item"><i class="fas fa-check-circle"></i> Can & Compañía se suscribió al plan mensual</span>
+    <span class="ticker-item"><i class="fas fa-shield-check"></i> Implementación acompañada desde el primer día</span>
+    <span class="ticker-item"><i class="fas fa-check-circle"></i> Valeria (Buenos Aires) empezó la prueba gratis</span>
+    <span class="ticker-item"><i class="fas fa-star"></i> Peluquería Patitas le dio 5 estrellas</span>
+    <span class="ticker-item"><i class="fas fa-check-circle"></i> Martín (Córdoba) se suscribió al plan anual</span>
+    <span class="ticker-item"><i class="fas fa-paw"></i> +200 negocios de mascotas usando PetFlow.PRO</span>
+    <span class="ticker-item"><i class="fas fa-check-circle"></i> Luciana (Rosario) empezó la prueba gratis</span>
+    <span class="ticker-item"><i class="fas fa-star"></i> Calificación promedio 4.8 de 5 estrellas</span>
+    <span class="ticker-item"><i class="fas fa-check-circle"></i> Can & Compañía se suscribió al plan mensual</span>
+    <span class="ticker-item"><i class="fas fa-shield-check"></i> Implementación acompañada desde el primer día</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<section class="section-soft py-12">
+  <div class="container-custom">
+    <div class="stats-strip">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div class="animate-on-scroll"><div class="stat-number">+200</div><div class="stat-label">Negocios activos hoy</div></div>
+        <div class="animate-on-scroll delay-1"><div class="stat-number">4.8</div><div class="stat-label">Calificación promedio (de 5)</div></div>
+        <div class="animate-on-scroll delay-2"><div class="stat-number">7</div><div class="stat-label">Días de prueba gratis</div></div>
+        <div class="animate-on-scroll delay-3"><div class="stat-number">25%</div><div class="stat-label">Descuento en el plan anual</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROBLEMAS ══ -->
+<section id="problemas" class="py-20">
+  <div class="container-custom">
+    <div class="text-center max-w-3xl mx-auto mb-12 animate-on-scroll">
+      <span class="eyebrow-light mb-4"><i class="fas fa-triangle-exclamation"></i> ¿Te identificás con alguna de estas situaciones?</span>
+      <h2 class="section-title">Si cualquiera de estas te suena conocida, PetFlow.PRO fue hecho para vos.</h2>
+      <p class="section-desc">"Agenda desorganizada, caja que no cierra, producto que se acaba sin aviso…" — estos problemas cuestan plata real todos los meses.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      <article class="pain-card animate-on-scroll">
+        <i class="fas fa-calendar-xmark text-3xl text-red-500 mb-4"></i>
+        <h3 class="font-extrabold text-slate-900 mb-2">"La agenda siempre está un caos"</h3>
+        <p class="text-slate-600 text-sm">Horarios cruzados, turnos perdidos, equipo que no sabe qué viene después.</p>
+      </article>
+      <article class="pain-card animate-on-scroll delay-1">
+        <i class="fas fa-box-open text-3xl text-red-500 mb-4"></i>
+        <h3 class="font-extrabold text-slate-900 mb-2">"El producto se agotó en el peor momento"</h3>
+        <p class="text-slate-600 text-sm">Te enterás del faltante cuando el cliente ya está esperando. Venta perdida, imagen afectada.</p>
+      </article>
+      <article class="pain-card animate-on-scroll delay-2">
+        <i class="fas fa-money-bill-wave text-3xl text-red-500 mb-4"></i>
+        <h3 class="font-extrabold text-slate-900 mb-2">"No sé cuánto me quedó en el mes"</h3>
+        <p class="text-slate-600 text-sm">El mes estuvo lleno de atenciones, pero a la hora de cerrar la caja los números no cierran.</p>
+      </article>
+      <article class="pain-card animate-on-scroll delay-3">
+        <i class="fas fa-user-group text-3xl text-red-500 mb-4"></i>
+        <h3 class="font-extrabold text-slate-900 mb-2">"¿El historial de la mascota? No tengo"</h3>
+        <p class="text-slate-600 text-sm">Alergias, observaciones y preferencias dependen de la memoria. Y la memoria falla.</p>
+      </article>
+    </div>
+    <div class="text-center animate-on-scroll">
+      <a href="/registro/" class="btn-primary btn-cta-green">Resolver estos problemas ahora <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MASCOTE ══ -->
+<section class="section-soft py-12">
+  <div class="container-custom">
+    <div class="mascote-section p-8 md:p-12">
+      <div class="relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12">
+        <div class="flex-shrink-0 flex justify-center">
+          <img src="./assets/mascote.png" alt="Mascota PetFlow.PRO" class="mascote-img" width="280" height="360" loading="lazy" />
+        </div>
+        <div class="flex-1 text-center md:text-left">
+          <div class="speech-bubble mb-6">
+            <p class="text-indigo-800 font-extrabold text-lg leading-snug mb-1">"¡Hola! Soy Slinky de PetFlow.PRO 🐾"</p>
+            <p class="text-slate-600 text-sm">Mi misión es simple: ayudar a tu negocio a dejar de improvisar y empezar a crecer con claridad.</p>
+          </div>
+          <h2 class="section-title mb-3">El sistema hecho <span class="text-indigo-600">especialmente</span> para peluquerías caninas y pet shops</h2>
+          <p class="section-desc mb-6 max-w-xl">No es un sistema genérico adaptado. PetFlow.PRO fue construido desde cero pensando en las rutinas, problemas y necesidades de quienes trabajan con mascotas todos los días.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+            <div class="bg-white rounded-xl p-4 border border-indigo-100 text-center">
+              <div class="text-2xl font-black text-indigo-600 mb-1">Agenda</div>
+              <div class="text-xs text-slate-500 font-semibold">Organizada por profesional y horario</div>
+            </div>
+            <div class="bg-white rounded-xl p-4 border border-indigo-100 text-center">
+              <div class="text-2xl font-black text-indigo-600 mb-1">Finanzas</div>
+              <div class="text-xs text-slate-500 font-semibold">Caja clara, sin sorpresas a fin de mes</div>
+            </div>
+            <div class="bg-white rounded-xl p-4 border border-indigo-100 text-center">
+              <div class="text-2xl font-black text-indigo-600 mb-1">BI</div>
+              <div class="text-xs text-slate-500 font-semibold">Metas, reportes y sugerencias automáticas</div>
+            </div>
+          </div>
+          <a href="/registro/" class="btn-primary"><i class="fas fa-rocket text-sm"></i> Quiero probar gratis por 7 días</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FUNCIONALIDADES ══ -->
+<section id="funcionalidades" class="py-20">
+  <div class="container-custom">
+    <div class="text-center max-w-3xl mx-auto mb-12 animate-on-scroll">
+      <span class="eyebrow-light mb-4"><i class="fas fa-cog"></i> Funcionalidades</span>
+      <h2 class="section-title">Todo lo que necesitás para profesionalizar la gestión de tu negocio</h2>
+      <p class="section-desc">PetFlow.PRO centraliza las áreas más importantes en un sistema simple de usar en el día a día.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <article class="card animate-on-scroll"><i class="fas fa-file-invoice-dollar text-indigo-600 text-3xl mb-4"></i><h3 class="text-xl font-extrabold mb-2 text-slate-900">Finanzas completas</h3><p class="text-slate-600 text-sm">Flujo de caja, cuentas por pagar y cobrar, registros y resultado claro del período.</p></article>
+      <article class="card animate-on-scroll delay-1"><i class="fas fa-box-open text-indigo-600 text-3xl mb-4"></i><h3 class="text-xl font-extrabold mb-2 text-slate-900">Stock inteligente</h3><p class="text-slate-600 text-sm">Control de productos, movimientos y alerta de stock mínimo para reducir faltantes.</p></article>
+      <article class="card animate-on-scroll delay-2"><i class="fas fa-calendar-alt text-indigo-600 text-3xl mb-4"></i><h3 class="text-xl font-extrabold mb-2 text-slate-900">Agenda profesional</h3><p class="text-slate-600 text-sm">Turnos, bloqueo de horarios y organización por profesional o bañador.</p></article>
+      <article class="card animate-on-scroll"><i class="fas fa-gift text-indigo-600 text-3xl mb-4"></i><h3 class="text-xl font-extrabold mb-2 text-slate-900">Paquetes y abonos</h3><p class="text-slate-600 text-sm">Servicios recurrentes, paquetes y ventas con más previsibilidad para la operación.</p></article>
+      <article class="card animate-on-scroll delay-1"><i class="fas fa-dog text-indigo-600 text-3xl mb-4"></i><h3 class="text-xl font-extrabold mb-2 text-slate-900">Historial completo de la mascota</h3><p class="text-slate-600 text-sm">Alergias, observaciones, comportamiento, vacunas e información de cada animal.</p></article>
+      <article class="card animate-on-scroll delay-2"><i class="fas fa-users text-indigo-600 text-3xl mb-4"></i><h3 class="text-xl font-extrabold mb-2 text-slate-900">Clientes organizados</h3><p class="text-slate-600 text-sm">Datos, historial e información del dueño fáciles de acceder en cualquier momento.</p></article>
+    </div>
+    <div class="text-center mt-10 animate-on-scroll">
+      <a href="/registro/" class="btn-primary">Probar todas las funcionalidades gratis <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BI ══ -->
+<section id="bi" class="py-6 section-soft">
+  <div class="container-custom">
+    <div class="bi-section p-8 md:p-14">
+      <div class="bi-pattern" aria-hidden="true"></div>
+      <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="animate-on-scroll">
+          <div class="mb-5">
+            <span class="inline-flex items-center gap-2 bg-yellow-300/15 border border-yellow-300/35 text-yellow-300 px-4 py-2 rounded-full text-xs font-black tracking-widest uppercase">
+              <i class="fas fa-brain"></i> Exclusivo PetFlow.PRO
+            </span>
+          </div>
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-white leading-[1.1] mb-5 tracking-[-0.03em]">
+            Inteligencia de Negocio <span class="text-yellow-300">para crecer con claridad</span>
+          </h2>
+          <p class="text-indigo-100 text-lg mb-6 leading-relaxed">
+            No alcanza con organizar — necesitás <strong class="text-white">entender dónde está tu negocio y hacia dónde va</strong>.
+          </p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3 text-indigo-100"><i class="fas fa-check-circle text-yellow-300 mt-1 flex-shrink-0"></i><span><strong class="text-white">Establecé metas</strong> de facturación, atenciones y crecimiento</span></li>
+            <li class="flex items-start gap-3 text-indigo-100"><i class="fas fa-check-circle text-yellow-300 mt-1 flex-shrink-0"></i><span><strong class="text-white">Seguí el desarrollo</strong> con dashboards claros en tiempo real</span></li>
+            <li class="flex items-start gap-3 text-indigo-100"><i class="fas fa-check-circle text-yellow-300 mt-1 flex-shrink-0"></i><span><strong class="text-white">Entendé dónde mejorar</strong> con análisis por servicio, profesional y período</span></li>
+            <li class="flex items-start gap-3 text-indigo-100"><i class="fas fa-check-circle text-yellow-300 mt-1 flex-shrink-0"></i><span><strong class="text-white">Recibí sugerencias automáticas</strong> basadas en los datos reales de tu negocio</span></li>
+          </ul>
+          <a href="/registro/" class="btn-primary btn-cta-green"><i class="fas fa-brain text-sm"></i> Quiero crecer con inteligencia</a>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 animate-on-scroll delay-2">
+          <div class="bi-feature-card"><div class="bi-icon"><i class="fas fa-bullseye"></i></div><h3 class="text-white font-extrabold mb-1 text-base">Metas inteligentes</h3><p class="text-indigo-300 text-sm">Definí objetivos por período, servicio o profesional y seguí el progreso.</p></div>
+          <div class="bi-feature-card"><div class="bi-icon"><i class="fas fa-chart-bar"></i></div><h3 class="text-white font-extrabold mb-1 text-base">Reportes de desempeño</h3><p class="text-indigo-300 text-sm">Vé qué vende más, qué servicio genera más margen y dónde está el potencial oculto.</p></div>
+          <div class="bi-feature-card"><div class="bi-icon"><i class="fas fa-lightbulb"></i></div><h3 class="text-white font-extrabold mb-1 text-base">Sugerencias automáticas</h3><p class="text-indigo-300 text-sm">El sistema analiza tus datos y sugiere acciones concretas para mejorar el resultado.</p></div>
+          <div class="bi-feature-card"><div class="bi-icon"><i class="fas fa-arrow-trend-up"></i></div><h3 class="text-white font-extrabold mb-1 text-base">Curva de crecimiento</h3><p class="text-indigo-300 text-sm">Visualizá la evolución de tu negocio a lo largo del tiempo con gráficos claros.</p></div>
+        </div>
+      </div>
+      <div class="relative z-10 mt-10 animate-on-scroll delay-3">
+        <div class="border-t border-white/10 pt-8">
+          <blockquote class="text-center text-indigo-200 text-lg italic max-w-2xl mx-auto">
+            "Con la Inteligencia de Negocio de PetFlow.PRO, dejé de adivinar y empecé a tomar decisiones con datos reales de mi negocio."
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMPARATIVO ══ -->
+<section id="comparativo" class="py-20">
+  <div class="container-custom">
+    <div class="text-center max-w-3xl mx-auto mb-12 animate-on-scroll">
+      <span class="eyebrow-light mb-4"><i class="fas fa-scale-balanced"></i> Con PetFlow.PRO vs sin PetFlow.PRO</span>
+      <h2 class="section-title">La diferencia entre improvisar y operar con claridad</h2>
+      <p class="section-desc">En vez de prometer milagros, PetFlow.PRO transforma los puntos críticos de la operación en rutina organizada.</p>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+      <div class="comparison-card animate-on-scroll">
+        <h3 class="text-2xl font-extrabold text-indigo-800 mb-6 flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> Con PetFlow.PRO</h3>
+        <ul class="space-y-5">
+          <li class="flex items-start gap-3"><span class="compare-ok">✓</span><div><p class="font-bold text-slate-900">Agenda más organizada</p><p class="text-sm text-slate-600">El equipo ve horarios, turnos y atenciones con mucha más claridad.</p></div></li>
+          <li class="flex items-start gap-3"><span class="compare-ok">✓</span><div><p class="font-bold text-slate-900">Finanzas visibles</p><p class="text-sm text-slate-600">Ingresos, egresos y resultado del período seguidos con facilidad.</p></div></li>
+          <li class="flex items-start gap-3"><span class="compare-ok">✓</span><div><p class="font-bold text-slate-900">Historial de la mascota centralizado</p><p class="text-sm text-slate-600">La información no se pierde en WhatsApp, cuaderno o la memoria de alguien.</p></div></li>
+          <li class="flex items-start gap-3"><span class="compare-ok">✓</span><div><p class="font-bold text-slate-900">Stock con previsibilidad</p><p class="text-sm text-slate-600">Te enterás antes cuando algo se está terminando o está parado de más.</p></div></li>
+          <li class="flex items-start gap-3"><span class="compare-ok">✓</span><div><p class="font-bold text-slate-900">BI: metas y sugerencias automáticas</p><p class="text-sm text-slate-600">Decisiones basadas en datos, no en suposiciones ni intuición.</p></div></li>
+        </ul>
+      </div>
+      <div class="comparison-card animate-on-scroll delay-2" style="background:#f8fafc;">
+        <h3 class="text-2xl font-extrabold text-slate-600 mb-6 flex items-center gap-2"><i class="fas fa-times-circle text-red-400"></i> Sin PetFlow.PRO</h3>
+        <ul class="space-y-5">
+          <li class="flex items-start gap-3"><span class="compare-bad">!</span><div><p class="font-bold text-slate-900">Agenda dispersa</p><p class="text-sm text-slate-600">Horarios en varios lados, aumentando errores y ruido operativo.</p></div></li>
+          <li class="flex items-start gap-3"><span class="compare-bad">!</span><div><p class="font-bold text-slate-900">Caja sin lectura clara</p><p class="text-sm text-slate-600">El resultado real llega tarde — o directamente no llega.</p></div></li>
+          <li class="flex items-start gap-3"><span class="compare-bad">!</span><div><p class="font-bold text-slate-900">Información perdida</p><p class="text-sm text-slate-600">Preferencias y observaciones dependen de la memoria o una conversación vieja.</p></div></li>
+          <li class="flex items-start gap-3"><span class="compare-bad">!</span><div><p class="font-bold text-slate-900">Stock reaccionando tarde</p><p class="text-sm text-slate-600">Te enterás del faltante cuando ya afectó la venta y la operación.</p></div></li>
+          <li class="flex items-start gap-3"><span class="compare-bad">!</span><div><p class="font-bold text-slate-900">Sin visión estratégica</p><p class="text-sm text-slate-600">Sin datos, sin metas, sin sugerencias — el crecimiento queda librado al azar.</p></div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="text-center mt-10 animate-on-scroll">
+      <a href="/registro/" class="btn-primary btn-cta-green">Empezar prueba gratis ahora <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ OBJECIONES ══ -->
+<section class="section-soft py-20">
+  <div class="container-custom">
+    <div class="text-center max-w-3xl mx-auto mb-12 animate-on-scroll">
+      <span class="eyebrow-light mb-4"><i class="fas fa-shield-halved"></i> Antes de que pienses en excusas…</span>
+      <h2 class="section-title">Respondemos lo que estás pensando ahora mismo</h2>
+      <p class="section-desc">La mayoría de las personas que no prueban tienen alguna de estas dudas. Ya tenemos la respuesta.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+      <div class="objection-card animate-on-scroll">
+        <div class="flex items-start gap-4 mb-3">
+          <div class="objection-number">1</div>
+          <p class="font-black text-slate-800 text-lg">"Mi negocio es chico, no necesito un sistema."</p>
+        </div>
+        <p class="text-slate-600 text-sm pl-12 leading-relaxed">Para operaciones más pequeñas, la ganancia es todavía más visible — porque todo recae en el dueño. PetFlow.PRO saca ese peso de tus hombros desde el primer día.</p>
+      </div>
+      <div class="objection-card animate-on-scroll delay-1">
+        <div class="flex items-start gap-4 mb-3">
+          <div class="objection-number">2</div>
+          <p class="font-black text-slate-800 text-lg">"No tengo tiempo para aprender un sistema nuevo."</p>
+        </div>
+        <p class="text-slate-600 text-sm pl-12 leading-relaxed">PetFlow.PRO fue diseñado para ser simple en el uso diario. La implementación es acompañada para que no te trabés en los primeros pasos.</p>
+      </div>
+      <div class="objection-card animate-on-scroll">
+        <div class="flex items-start gap-4 mb-3">
+          <div class="objection-number">3</div>
+          <p class="font-black text-slate-800 text-lg">"¿Y si no me gusta? ¿Quedo atado a un contrato?"</p>
+        </div>
+        <p class="text-slate-600 text-sm pl-12 leading-relaxed">En el plan mensual, cancelás cuando quieras, sin penalidad. Te quedás porque funciona, no porque estás obligado. Sin permanencia, sin trampas.</p>
+      </div>
+      <div class="objection-card animate-on-scroll delay-1">
+        <div class="flex items-start gap-4 mb-3">
+          <div class="objection-number">4</div>
+          <p class="font-black text-slate-800 text-lg">"¿El precio en dólares no me conviene?"</p>
+        </div>
+        <p class="text-slate-600 text-sm pl-12 leading-relaxed">El precio en USD protege la estabilidad del servicio frente a la inflación. USD 15/mes es menos de lo que perdés en una sola atención mal coordinada — y podés pagar con Mercado Pago.</p>
+      </div>
+    </div>
+    <div class="risk-strip max-w-3xl mx-auto mt-10 animate-on-scroll">
+      <i class="fas fa-shield-check text-green-600 text-2xl flex-shrink-0"></i>
+      <div>
+        <p class="font-extrabold text-green-900 mb-0.5">Sin riesgo real. La decisión siempre es tuya.</p>
+        <p class="text-green-800 text-sm">7 días de acceso completo · Sin cobro durante la prueba · Cancelá sin burocracia · Sin permanencia en el plan mensual</p>
+      </div>
+    </div>
+    <div class="text-center mt-8 animate-on-scroll">
+      <a href="/registro/" class="btn-primary btn-cta-green">Quiero probar gratis ahora <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIOS — OCULTO HASTA TENER REVIEWS REALES ══ -->
+<!-- Descomentar cuando tengas testimonios de clientes argentinos reales -->
+<!--
+<section id="testimonios" class="py-20">
+  <div class="container-custom">
+    ...testimonios aquí...
+  </div>
+</section>
+-->
+
+<!-- ══ GARANTÍA ══ -->
+<section class="section-soft py-16">
+  <div class="container-custom max-w-3xl">
+    <div class="guarantee-card animate-on-scroll">
+      <div class="guarantee-icon-wrap"><i class="fas fa-shield-check"></i></div>
+      <h2 class="text-2xl md:text-3xl font-black text-green-900 mb-3">Probá sin riesgo por 7 días</h2>
+      <p class="text-green-800 max-w-xl mx-auto mb-4 leading-relaxed">Tenés <strong>7 días para probar con acceso completo</strong>. Si no funciona, solo cancelás — sin burocracia, sin penalidad, sin complicaciones.</p>
+      <div class="flex flex-wrap justify-center gap-3 mb-6 text-green-700 text-sm font-semibold">
+        <span><i class="fas fa-check-circle mr-1"></i> Cancelá cuando quieras</span>
+        <span><i class="fas fa-check-circle mr-1"></i> Sin permanencia en el mensual</span>
+        <span><i class="fas fa-check-circle mr-1"></i> Soporte incluido</span>
+        <span><i class="fas fa-check-circle mr-1"></i> Acceso completo en la prueba</span>
+      </div>
+      <a href="/registro/" class="btn-primary btn-cta-green"><i class="fas fa-rocket"></i> Quiero probar gratis ahora</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PLANES ══ -->
+<section id="planes" class="py-20">
+  <div class="container-custom">
+    <div class="text-center max-w-3xl mx-auto mb-4 animate-on-scroll">
+      <span class="eyebrow-light mb-4"><i class="fas fa-tag"></i> Planes y precios</span>
+      <h2 class="section-title">Simple, transparente, sin sorpresas</h2>
+      <p class="section-desc">Los dos planes dan acceso completo al sistema, incluida la Inteligencia de Negocio.</p>
+    </div>
+    <div class="max-w-2xl mx-auto mb-4 text-center animate-on-scroll">
+      <span class="usd-note"><i class="fas fa-info-circle"></i> Precios en USD para garantizar estabilidad del servicio. Podés pagar con Mercado Pago.</span>
+    </div>
+    <div class="max-w-2xl mx-auto mb-8 animate-on-scroll">
+      <div class="price-anchor-bar">
+        <div class="flex items-center gap-3">
+          <i class="fas fa-clock text-indigo-600 text-xl"></i>
+          <div>
+            <p class="font-extrabold text-indigo-900 text-sm">Estás perdiendo plata mientras leés esto</p>
+            <p class="text-indigo-600 text-xs">Cada mes sin control cuesta más que el sistema</p>
+          </div>
+        </div>
+        <div class="text-right">
+          <p class="text-2xl font-black text-indigo-700">USD 11,25<span class="text-sm font-semibold text-slate-500">/mes</span></p>
+          <p class="text-xs text-slate-500">en el plan anual</p>
+        </div>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      <!-- MENSUAL -->
+      <div class="plan-card animate-on-scroll">
+        <div class="text-center mb-6">
+          <h3 class="text-2xl font-extrabold text-slate-900 mb-2">Suscripción Mensual</h3>
+          <div class="flex items-end justify-center gap-1"><span class="text-5xl font-black text-indigo-600">USD&nbsp;15</span><span class="text-slate-500 mb-2">/mes</span></div>
+          <p class="text-sm text-slate-500 mt-2">Pago mensual · Sin permanencia</p>
+        </div>
+        <ul class="space-y-3 mb-8 text-sm">
+          <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i><span>Acceso completo al sistema</span></li>
+          <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i><span>Inteligencia de Negocio incluida</span></li>
+          <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i><span>Cancelá cuando quieras, sin penalidad</span></li>
+          <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i><span>Soporte incluido</span></li>
+          <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i><span>7 días de prueba gratis</span></li>
+          <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i><span>Pagá con Mercado Pago</span></li>
+        </ul>
+        <a href="/registro/?plan=mensual" class="btn-primary w-full">Empezar prueba gratis <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <!-- ANUAL -->
+      <div class="plan-card highlighted animate-on-scroll delay-2">
+        <div class="plan-badge">⭐ Recomendado · 3 meses gratis</div>
+        <div class="text-center mb-6 mt-5">
+          <h3 class="text-2xl font-extrabold text-slate-900 mb-2">Suscripción Anual</h3>
+          <div class="mb-2"><span class="price-original">USD 180</span><span class="economy-badge"><i class="fas fa-piggy-bank"></i> Ahorrás USD 45</span></div>
+          <div class="flex items-end justify-center gap-1"><span class="text-5xl font-black text-indigo-600">USD&nbsp;135</span></div>
+          <p class="text-sm font-semibold text-slate-900 mt-2">Equivale a <span class="text-lg font-black text-indigo-600">USD 11,25/mes</span></p>
+          <p class="text-sm text-slate-500">pago único — precio fijo por 12 meses</p>
+          <div class="flex flex-wrap justify-center gap-2 mt-3"><span class="economy-badge">25% OFF</span><span class="economy-badge">3 meses gratis</span></div>
+        </div>
+        <ul class="space-y-3 mb-8 text-sm">
+          <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i><span>Acceso completo al sistema</span></li>
+          <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i><span>Inteligencia de Negocio incluida</span></li>
+          <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i><span>Mejor relación precio-valor</span></li>
+          <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i><span>Precio fijo por 12 meses</span></li>
+          <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i><span>7 días de prueba gratis</span></li>
+          <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i><span>Pagá con Mercado Pago</span></li>
+        </ul>
+        <a href="/registro/?plan=anual" class="btn-primary btn-cta-green w-full">Empezar prueba gratis — Mejor plan <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="text-center mt-8 animate-on-scroll">
+      <p class="text-slate-500 text-sm font-semibold">
+        <i class="fas fa-shield-check text-green-500 mr-1"></i>
+        Acceso completo · 7 días gratis · Cancelá cuando quieras · Precios en USD · Pagá con Mercado Pago
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section id="faq" class="section-soft py-20" itemscope itemtype="https://schema.org/FAQPage">
+  <div class="container-custom max-w-4xl">
+    <div class="text-center max-w-2xl mx-auto mb-12 animate-on-scroll">
+      <span class="eyebrow-light mb-4"><i class="fas fa-question-circle"></i> Preguntas frecuentes</span>
+      <h2 class="section-title">Dudas sobre el sistema</h2>
+      <p class="section-desc">Respuestas claras a las preguntas más comunes antes de empezar la prueba.</p>
+    </div>
+    <div class="space-y-4">
+      <div class="faq-item animate-on-scroll" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-question" onclick="toggleFaq(this)" role="button" aria-expanded="false" tabindex="0"><span itemprop="name">¿Necesito ingresar tarjeta para empezar la prueba gratis?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+        <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">Sí. El registro para la prueba gratuita de 7 días requiere tarjeta. No se te cobra durante el período de prueba. Esto ayuda a mantener el proceso calificado y simplifica la continuidad si querés seguir usando el sistema.</div></div>
+      </div>
+      <div class="faq-item animate-on-scroll delay-1" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-question" onclick="toggleFaq(this)" role="button" aria-expanded="false" tabindex="0"><span itemprop="name">¿Tengo permanencia obligatoria?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+        <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">No en el plan mensual. Podés cancelar cuando quieras, sin penalidad contractual. La idea es que te quedes porque PetFlow.PRO funciona, no porque quedaste atrapado en un contrato.</div></div>
+      </div>
+      <div class="faq-item animate-on-scroll delay-2" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-question" onclick="toggleFaq(this)" role="button" aria-expanded="false" tabindex="0"><span itemprop="name">¿El sistema es difícil de usar?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+        <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">No. PetFlow.PRO fue diseñado para ser simple en el uso diario, incluso para equipos que no les gustan los sistemas complicados. El objetivo es reducir el ruido operativo, no crear más trabajo.</div></div>
+      </div>
+      <div class="faq-item animate-on-scroll delay-3" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-question" onclick="toggleFaq(this)" role="button" aria-expanded="false" tabindex="0"><span itemprop="name">¿Por qué el precio está en dólares?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+        <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">El precio en USD garantiza la estabilidad y continuidad del servicio independientemente de la variación cambiaria. Así podemos seguir invirtiendo en mejoras sin ajustar precios constantemente. Podés pagar fácilmente con Mercado Pago.</div></div>
+      </div>
+      <div class="faq-item animate-on-scroll delay-4" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-question" onclick="toggleFaq(this)" role="button" aria-expanded="false" tabindex="0"><span itemprop="name">¿PetFlow.PRO tiene Inteligencia de Negocio?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+        <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">Sí. El módulo de Inteligencia de Negocio está incluido en todos los planes. Podés establecer metas, seguir el desarrollo, entender dónde mejorar y recibir sugerencias automáticas basadas en datos reales.</div></div>
+      </div>
+      <div class="faq-item animate-on-scroll delay-5" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-question" onclick="toggleFaq(this)" role="button" aria-expanded="false" tabindex="0"><span itemprop="name">¿Me ayudan con la implementación?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+        <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">Sí. El inicio de la implementación es acompañado para facilitar la entrada al sistema y evitar que te trabés en los primeros pasos. La propuesta es acelerar el uso práctico desde el día uno.</div></div>
+      </div>
+      <div class="faq-item animate-on-scroll" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-question" onclick="toggleFaq(this)" role="button" aria-expanded="false" tabindex="0"><span itemprop="name">¿Cuánto cuesta PetFlow.PRO?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+        <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">Plan mensual: USD 15/mes sin permanencia. Plan anual: USD 135 por año (equivalente a USD 11,25/mes), con 25% de descuento y 3 meses gratis. Ambos incluyen 7 días de prueba gratis y acceso a la Inteligencia de Negocio.</div></div>
+      </div>
+      <div class="faq-item animate-on-scroll" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-question" onclick="toggleFaq(this)" role="button" aria-expanded="false" tabindex="0"><span itemprop="name">¿El sistema funciona para negocios pequeños?</span><i class="fas fa-chevron-down faq-icon"></i></div>
+        <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">Sí. Para operaciones más pequeñas, la ganancia es todavía más perceptible, porque la gestión suele recaer completamente en el dueño. PetFlow.PRO ayuda a aliviar ese peso y profesionalizar la operación desde el inicio.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA FINAL ══ -->
+<section class="hero-section cta-final-section">
+  <div class="hero-pattern" aria-hidden="true"></div>
+  <div class="cta-final-wave-top" aria-hidden="true">
+    <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0 68C120 44 240 50 360 60C480 70 600 86 720 88C840 90 960 78 1080 58C1200 38 1320 18 1440 0V0H0V68Z" fill="#F8FAFC"></path>
+    </svg>
+  </div>
+  <div class="container-custom text-center text-white">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-5xl mb-4 animate-on-scroll visible">🐾</div>
+      <h2 class="text-3xl md:text-5xl font-black leading-[1.08] mb-4 tracking-[-0.04em] text-balance animate-on-scroll visible">
+        Tu negocio no tiene por qué seguir funcionando a la deriva
+      </h2>
+      <p class="text-lg md:text-xl text-indigo-100 max-w-2xl mx-auto mb-8 animate-on-scroll visible delay-1">
+        Empezá ahora con <strong>PetFlow.PRO</strong> y mirá cómo se simplifica tener agenda, clientes, mascotas, stock, finanzas e <strong class="text-yellow-300">Inteligencia de Negocio</strong> organizados en un único sistema — con 7 días gratis, sin riesgo.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-on-scroll visible delay-2">
+        <a href="/registro/" class="btn-primary-light text-lg px-8 py-4 w-full sm:w-auto justify-center"><i class="fas fa-rocket"></i> Empezar prueba gratis — 7 días</a>
+        <a href="#planes" class="btn-outline-white w-full sm:w-auto justify-center">Ver planes y precios</a>
+      </div>
+      <p class="text-indigo-100/90 text-sm font-semibold mt-5 animate-on-scroll visible delay-3">
+        <i class="fas fa-shield-check text-green-400 mr-1"></i>
+        Sin riesgo · Cancelá cuando quieras · Soporte incluido · Precios en USD · Pagá con Mercado Pago
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="bg-slate-950 text-white py-14">
+  <div class="container-custom">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="animate-on-scroll">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center"><img src="https://app.petflow.pro/App/assets/images/logo.png" alt="Logo PetFlow.PRO" class="w-6 h-6 object-contain" width="24" height="24" loading="lazy" /></div>
+          <span class="font-extrabold text-lg">PetFlow.PRO</span>
+        </div>
+        <p class="text-slate-400 text-sm mb-3">Sistema de gestión para peluquerías caninas y pet shops — agenda, stock, finanzas e Inteligencia de Negocio en un único lugar.</p>
+      </div>
+      <div class="animate-on-scroll delay-1">
+        <h3 class="font-bold text-lg mb-4">Navegación</h3>
+        <ul class="space-y-2 text-sm text-slate-400">
+          <li><a href="#problemas" class="hover:text-white transition">Problemas que resolvemos</a></li>
+          <li><a href="#funcionalidades" class="hover:text-white transition">Funcionalidades</a></li>
+          <li><a href="#bi" class="hover:text-white transition">Inteligencia de Negocio</a></li>
+          <li><a href="#comparativo" class="hover:text-white transition">Comparativo</a></li>
+          <li><a href="#planes" class="hover:text-white transition">Planes y precios</a></li>
+          <li><a href="#faq" class="hover:text-white transition">Preguntas frecuentes</a></li>
+        </ul>
+      </div>
+      <div class="animate-on-scroll delay-2">
+        <h3 class="font-bold text-lg mb-4">Contacto</h3>
+        <address class="not-italic">
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li class="flex items-center gap-2"><i class="fas fa-envelope text-indigo-400"></i><a href="mailto:soporte@petflow.pro" class="hover:text-white transition">soporte@petflow.pro</a></li>
+            <li class="flex items-center gap-2"><i class="fab fa-whatsapp text-indigo-400"></i><a href="https://wa.me/5491XXXXXXXXX" class="hover:text-white transition">WhatsApp Argentina</a></li>
+          </ul>
+        </address>
+        <div class="mt-4"><a href="https://app.petflow.pro" class="text-indigo-400 hover:text-indigo-300 text-sm font-semibold transition">Acceder al sistema &rarr;</a></div>
+      </div>
+      <div class="animate-on-scroll delay-3">
+        <h3 class="font-bold text-lg mb-4">Redes sociales</h3>
+        <div class="flex gap-3 mb-5">
+          <a href="https://www.instagram.com/petflow.pro/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-indigo-600 transition" aria-label="Instagram PetFlow.PRO">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+        <div class="bg-slate-900 rounded-xl p-3 text-xs text-slate-400">
+          <p class="font-semibold text-slate-300 mb-1">Sistema para mascotas</p>
+          <p>Agenda · Stock · Finanzas · Clientes · Mascotas · Paquetes · BI</p>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-slate-800 mt-10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-400">
+      <p>&copy; 2026 PetFlow.PRO &mdash; Todos los derechos reservados.</p>
+      <div class="flex gap-4">
+        <a href="/privacidad/" class="hover:text-white transition">Política de Privacidad</a>
+        <a href="/terminos/" class="hover:text-white transition">Términos de Uso</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOTANTE -->
+<a href="https://wa.me/5491XXXXXXXXX" class="sticky-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Hablar por WhatsApp">
+  <i class="fab fa-whatsapp text-2xl"></i>
+</a>
+
+<!-- CTA MOBILE FIJO -->
+<div class="sticky-mobile-cta md:hidden" role="complementary">
+  <a href="/registro/" class="btn-primary btn-cta-green" style="border-radius:12px;font-size:.92rem;padding:.9rem 1.2rem;width:100%;justify-content:center;">
+    <i class="fas fa-rocket text-sm"></i> Empezar prueba gratis — 7 días
+  </a>
+</div>
+
+<script>
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.querySelector('[aria-controls="mobileMenu"]');
+    const isHidden = menu.classList.toggle('hidden');
+    if (btn) btn.setAttribute('aria-expanded', String(!isHidden));
+  }
+
+  function toggleFaq(element) {
+    const faqItem = element.parentElement;
+    const answer = element.nextElementSibling;
+    const isActive = faqItem.classList.contains('active');
+    document.querySelectorAll('.faq-item.active').forEach(item => {
+      if (item !== faqItem) {
+        item.classList.remove('active');
+        const a = item.querySelector('.faq-answer');
+        a.classList.remove('show');
+        a.style.maxHeight = null;
+        item.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      }
+    });
+    faqItem.classList.toggle('active', !isActive);
+    element.setAttribute('aria-expanded', String(!isActive));
+    if (isActive) { answer.classList.remove('show'); answer.style.maxHeight = null; }
+    else { answer.classList.add('show'); answer.style.maxHeight = answer.scrollHeight + 'px'; }
+  }
+
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); q.click(); } });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (!href || href === '#') return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top, behavior: 'smooth' });
+        const mm = document.getElementById('mobileMenu');
+        if (mm && !mm.classList.contains('hidden')) {
+          mm.classList.add('hidden');
+          const btn = document.querySelector('[aria-controls="mobileMenu"]');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+        }
+      }
+    });
+  });
+
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('.navbar-glass');
+    if (nav) nav.style.boxShadow = window.scrollY > 20
+      ? '0 8px 32px rgba(15,23,42,0.16)' : '0 8px 32px rgba(15,23,42,0.08)';
+  }, { passive: true });
+</script>
+</body>
+</html>
