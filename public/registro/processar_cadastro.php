@@ -722,6 +722,36 @@ try {
     $phone_area  = strlen($telefono) >= 3 ? substr($telefono, 0, 3) : $telefono;
     $phone_num   = strlen($telefono) >= 3 ? substr($telefono, 3)    : '';
 
+    // Mapa de codigos de provincia para nome completo (exigido pelo MP em state_name)
+    static $provinciaNomes = [
+        'BA'   => 'Buenos Aires',
+        'CABA' => 'Ciudad Autónoma de Buenos Aires',
+        'CA'   => 'Catamarca',
+        'CH'   => 'Chaco',
+        'CT'   => 'Chubut',
+        'CB'   => 'Córdoba',
+        'CR'   => 'Corrientes',
+        'ER'   => 'Entre Ríos',
+        'FO'   => 'Formosa',
+        'JY'   => 'Jujuy',
+        'LP'   => 'La Pampa',
+        'LR'   => 'La Rioja',
+        'MZ'   => 'Mendoza',
+        'MS'   => 'Misiones',
+        'NQ'   => 'Neuquén',
+        'RN'   => 'Río Negro',
+        'SA'   => 'Salta',
+        'SJ'   => 'San Juan',
+        'SL'   => 'San Luis',
+        'SC'   => 'Santa Cruz',
+        'SF'   => 'Santa Fe',
+        'SE'   => 'Santiago del Estero',
+        'TF'   => 'Tierra del Fuego',
+        'TU'   => 'Tucumán',
+    ];
+    $provincia_nome = $provinciaNomes[strtoupper($provincia_usuario)]
+                   ?? $provincia_usuario; // fallback: usa o proprio codigo
+
     $customerPayload = [
         'email'          => $email_login,
         'first_name'     => $first_name,
@@ -732,6 +762,9 @@ try {
             'zip_code'      => $cp_usuario,
             'street_name'   => $user_street,
             'street_number' => is_numeric($user_number) ? (int)$user_number : 0,
+            'city'          => $localidad_usuario,       // OBRIGATORIO no MP
+            'state_name'    => $provincia_nome,          // OBRIGATORIO no MP
+            'country_name'  => 'Argentina',
         ],
         'description' => 'Cliente PetFlow.PRO Argentina',
         'metadata'    => [
