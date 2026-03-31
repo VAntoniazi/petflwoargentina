@@ -890,11 +890,10 @@ try {
             'frequency'          => $freqData['frequency'],
             'frequency_type'     => $freqData['frequency_type'],
             'transaction_amount' => $valorFinalFloat,
-            // currency_id NAO e aceito no auto_recurring do MP AR —
-            // a moeda e definida automaticamente pela conta (ARS).
-            // O valor USD e convertido pelo MP na taxa do dia via Mercado Pago.
+            'currency_id'        => 'ARS',   // obrigatorio — MP AR so aceita ARS
             'start_date'         => $start_date_iso,
-            // end_date omitido (null e rejeitado) — assinatura sem vencimento
+            // end_date omitido intencionalmente — null e rejeitado pelo MP;
+            // omitir = assinatura sem vencimento (recorrente indefinida)
             'free_trial'         => [
                 'frequency'      => $trialDays,
                 'frequency_type' => 'days',
